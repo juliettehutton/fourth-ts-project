@@ -584,7 +584,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"h7u1C":[function(require,module,exports) {
-console.log("hi there");
+console.log("hi there!");
 
 },{}]},["a2S4S","h7u1C"], "h7u1C", "parcelRequire94c2")
 
