@@ -586,13 +586,16 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"h7u1C":[function(require,module,exports) {
 var _user = require("./models/user");
 const user = new (0, _user.User)({
-    name: "bebew"
-});
-user.set({
+    name: "bebew",
     age: 25
 });
-console.log(user.get("name"));
-console.log(user.get("age"));
+user.on("allo", ()=>{
+    console.log("coucou");
+});
+user.on("allo", ()=>{
+    console.log("yiha");
+});
+user.trigger("allo");
 
 },{"./models/user":"g3Xwn"}],"g3Xwn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -601,12 +604,25 @@ parcelHelpers.export(exports, "User", ()=>User);
 class User {
     constructor(data){
         this.data = data;
+        this.events = {};
     }
     get(propName) {
         return this.data[propName];
     }
     set(update) {
         Object.assign(this.data, update);
+    }
+    on(eventName, callback) {
+        const handlers = this.events[eventName] || [];
+        handlers.push(callback);
+        this.events[eventName] = handlers;
+    }
+    trigger(eventName) {
+        const handlers = this.events[eventName];
+        if (!handlers || handlers.length === 0) return;
+        handlers.forEach((callback)=>{
+            callback();
+        });
     }
 }
 
