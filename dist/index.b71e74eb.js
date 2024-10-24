@@ -586,7 +586,9 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"h7u1C":[function(require,module,exports) {
 var _user = require("./models/user");
 const user = new (0, _user.User)({
-    name: "bebew",
+    name: "bebew"
+});
+user.set({
     age: 25
 });
 console.log(user.get("name"));
@@ -602,6 +604,9 @@ class User {
     }
     get(propName) {
         return this.data[propName];
+    }
+    set(update) {
+        Object.assign(this.data, update);
     }
 }
 
